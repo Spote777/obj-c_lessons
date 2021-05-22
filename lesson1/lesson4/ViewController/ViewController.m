@@ -7,6 +7,8 @@
 
 #import "ViewController.h"
 #import "Student.h"
+#import "Bird.h"
+#import "BirdCollection.h"
 
 @interface ViewController ()
 
@@ -49,8 +51,9 @@ typedef NS_ENUM(NSInteger, Operation) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
+    
     [self students];
+    [self birds];
 }
 
 - (void)calculateWithOperator:(Operation)operator arg1: (NSInteger)arg1 arg2: (NSInteger) arg2 {
@@ -129,11 +132,15 @@ typedef NS_ENUM(NSInteger, Operation) {
     human1.gender = Man;
     NSLog(@"Human name: %@, age: %d, gender: %@", human1.name, human1.age, [self formatGender:human1.gender]);
     
+    [human1.name release];
+    
     struct Human human2;
     human2.name = @"Name2";
     human2.age = 39;
     human2.gender = Woman;
     NSLog(@"Human name: %@, age: %d, gender: %@", human2.name, human2.age, [self formatGender:human2.gender]);
+    
+    [human2.name release];
 }
 
 -(void) students {
@@ -152,6 +159,27 @@ typedef NS_ENUM(NSInteger, Operation) {
     for (Student* student in studentList) {
         NSLog(@"%@", student);
     }
+    
+    for (Student* student in studentList) {
+        [student.name release];
+        [student.surname release];
+        [student release];
+    }
+}
+
+- (void) birds
+{
+    BirdCollection* collection = [[BirdCollection alloc] init];
+    
+    [collection addBird:[[Bird alloc] initWithNumber:1]];
+    [collection addBird:[[Bird alloc] initWithNumber:2]];
+    [collection addBird:[[Bird alloc] initWithNumber:3]];
+    [collection addBird:[[Bird alloc] initWithNumber:4]];
+    [collection addBird:[[Bird alloc] initWithNumber:5]];
+    [collection addBird:[[Bird alloc] initWithNumber:6]];
+    [collection addBird:[[Bird alloc] initWithNumber:7]];
+    
+    [collection release];
 }
 
 @end
